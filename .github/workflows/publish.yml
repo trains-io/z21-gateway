@@ -15,6 +15,7 @@ jobs:
       KO_IMAGE_TAG: ${{ github.ref_name }}
       GITHUB_SHA: ${{ github.sha }}
       BUILD_DATE: ${{ github.event.head_commit.timestamp }}
+      GOPRIVATE: ${{ github.repository_owner }}
     
     steps:
       - name: Checkout repository
