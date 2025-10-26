@@ -1,0 +1,43 @@
+name: Publish Container Image
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-publish:
+    name: Build & Publish Container Image
+    runs-on: ubuntu-latest
+    
+    env:
+      KO_DOCKER_REPO: ghcr.io/${{ github.repository_owner }}/z21-gateway
+      KO_IMAGE_TAG: ${{ github.ref_name }}
+      GITHUB_SHA: ${{ github.sha }}
+      BUILD_DATE: ${{ github.event.head_commit.timestamp }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+    
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.24"
+
+      - name: Install ko
+        run: |
+          go install github.com/google/ko@latest
+          echo "${{ github.workspace }}/go/bin" >> $GITHUB_PATH
+
+      - name: Log in to ghcr
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and Publish Image
+        run: |
+          echo "Building image with ko ..."
+          ko build --bare --tags "${KO_IMAGE_TAG}" ./...

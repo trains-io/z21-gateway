@@ -1,0 +1,13 @@
+defaultBaseImage: gcr.io/distroless/static
+
+builds:
+  - id: z21gw
+    main: .
+    ldflags:
+      - "-X main.version={{.Env.GITHUB_REF_NAME}}"
+      - "-X main.commit={{.Env.GITHUB_SHA}}"
+      - "-X main.date={{.Env.BUILD_DATE}}"
+    env:
+      - CGO_ENABLED=0
+      - GOOS=linux
+      - GOARCH=amd64
