@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: z21-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: z21-gateway
+  template:
+    metadata:
+      labels:
+        app: z21-gateway
+    spec:
+      containers:
+        - name: z21-gateway
+          image: ko://github.com/trains-io/z21-gateway
+          env:
+            - name: Z21_NAME
+              value: main # kpt-set: ${z21-name}
+            - name: Z21_ADDR
+              value: 127.0.0.1 # kpt-set: ${z21-addr}
+            - name: NATS_URL
+              value: nats://localhost:4222 # kpt-set: ${nats-url}
