@@ -19,14 +19,16 @@ type Config struct {
 	Logger            zerolog.Logger
 }
 
-var usageStr = `
+var usageStr = `The z21-gateway is a lightweight gateway application that bridges a z21 device
+to a NATS message bus.
+
 Usage: z21-gateway [options]
 
 Gateway Options:
-	-zc, --z21_addr <host>		Z21 address (default: 127.0.0.1:21105)
-	-nc, --nats_url <host>		NATS server URL (default: nats://127.0.0.1:4222)
+	-zc, --z21_addr <host[:port]>  z21 address (default: 127.0.0.1:21105)
+	-nc, --nats_url <host>         NATS server URL (default: nats://127.0.0.1:4222)
 	-n, --name
-	    --z21_name <z21_name>	Z21 name (default: main)
+	    --z21_name <z21_name>      z21 name (default: main)
 
 Environment Variables:
 	Z21_NAME (overridden by --z21_name)
