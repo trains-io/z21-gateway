@@ -80,15 +80,21 @@ Output
 
 #### Kubernetes
 
-You can deploy the `z21-gateway` into a local `kind` cluster for testing and development. The provided
-`Makefile` automates the entire process - from cluster creation to deployment.
+You can deploy the `z21-gateway` into a local `kind` cluster for testing and development. 
 
 ##### Setup
 
-To create a local kind cluster and install a NATS server inside it:
+To create a local kind cluster and install a NATS server inside it, clone the infra repository:
 
 ```sh
-make setup
+git clone https://github.com/trains-io/z21-infra.git
+cd z21-infra
+```
+
+The provided `Makefile` automates the entire process - from cluster creation to deployment.
+
+```sh
+make all
 ```
 
 This target will:
@@ -113,6 +119,7 @@ export Z21_ADDR=$(z21scan [IFACE|NETWORK] -o short)
 Build, containerize, and deploy the gateway into the cluster using:
 
 ```sh
+cd z21-gateway
 make deploy
 ```
 
