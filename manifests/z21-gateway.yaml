@@ -17,8 +17,17 @@ spec:
           image: ko://github.com/trains-io/z21-gateway
           env:
             - name: Z21_NAME
-              value: main # kpt-set: ${z21-name}
+              valueFrom:
+                configMapKeyRef:
+                  name: z21-config
+                  key: Z21_NAME
             - name: Z21_ADDR
-              value: 127.0.0.1 # kpt-set: ${z21-addr}
+              valueFrom:
+                configMapKeyRef:
+                  name: z21-config
+                  key: Z21_ADDR
             - name: NATS_URL
-              value: nats://localhost:4222 # kpt-set: ${nats-url}
+              valueFrom:
+                configMapKeyRef:
+                  name: z21-config
+                  key: NATS_URL

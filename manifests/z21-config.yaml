@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: z21-config
+data:
+  Z21_NAME: main # kpt-set: ${z21-name}
+  Z21_ADDR: 127.0.0.1 # kpt-set: ${z21-addr}
+  NATS_URL: nats://localhost:4222 # kpt-set: ${nats-url}
