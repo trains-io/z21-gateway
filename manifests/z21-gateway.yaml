@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: z21-gateway
+  name: z21-gateway-main
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: z21-gateway
+      app: z21-gateway-main
   template:
     metadata:
       labels:
-        app: z21-gateway
+        app: z21-gateway-main
     spec:
       containers:
-        - name: z21-gateway
+        - name: z21-gateway-main
           image: ko://github.com/trains-io/z21-gateway
           env:
             - name: Z21_NAME

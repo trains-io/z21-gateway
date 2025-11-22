@@ -19,7 +19,7 @@ KO      ?= ko
 KIND    ?= kind
 K       ?= kubectl
 HELM    ?= helm
-KPT     ?= /home/pbe/go/bin/kpt
+KPT     ?= kpt
 
 .PHONY: all
 all: fmt vet build ## Run fmt, vet, and build
@@ -38,19 +38,6 @@ vet: ## Run go vet for static analysis
 build: ## Build the binary
 	@echo "Building $(APP_NAME) ($(VERSION))"
 	$(GO) build -ldflags "$(LDFLAGS)" -o $(BUILD)/$(APP_NAME) $(PKG)
-
-.PHONY: setup
-setup: ## Create a local KinD cluster
-	@echo "Creating local cluster \"$(LOCAL_CLUSTER_NAME)\" ..."
-	@$(KIND) create cluster --name $(LOCAL_CLUSTER_NAME) 2>/dev/null || true
-	@$(K) config use-context kind-$(LOCAL_CLUSTER_NAME)
-	@echo "Installing NATS ..."
-	@$(HELM) repo add nats https://nats-io.github.io/k8s/helm/charts/ || true
-	@$(HELM) install nats nats/nats 2>/dev/null || true
-
-.PHONY: teardown
-teardown: ## Delete local KinD cluster
-	@$(KIND) delete cluster -n $(LOCAL_CLUSTER_NAME) || true
 
 .PHONY: manifest
 manifest: ## Build k8s manifests for local deployment
