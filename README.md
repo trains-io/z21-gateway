@@ -102,12 +102,6 @@ This target will:
 - Create a new kind cluster (if one doesn’t exist)
 - Deploy a NATS server for message exchange
 
-Once complete, retrieve the NATS server URL and export it for later use:
-
-```sh
-export NATS_URL=nats://$(kubectl get svc nats -o jsonpath='{.spec.clusterIP}:{.spec.ports[0].port}')
-```
-
 To discover your z21 device address using the `z21scan` tool:
 
 ```sh
@@ -131,7 +125,6 @@ You can override environment variables before deployment to customize the runtim
 ```sh
 export Z21_NAME=main
 export Z21_ADDR=192.168.0.100
-export NATS_URL=nats://10.96.0.5:4222
 make deploy
 ```
 
