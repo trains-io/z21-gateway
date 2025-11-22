@@ -5,7 +5,7 @@ go 1.24.9
 require (
 	github.com/nats-io/nats.go v1.47.0
 	github.com/rs/zerolog v1.34.0
-	github.com/trains-io/z21.go v0.0.0-20251026182854-3f61fcbd1c93
+	github.com/trains-io/z21.go v0.0.0-20251116102605-e9f89fcee895
 )
 
 require (

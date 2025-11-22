@@ -51,7 +51,7 @@ manifest: ## Build k8s manifests for local deployment
 		   nats-url=${NATS_URL}
 
 .PHONY: deploy
-deploy: manifest ## Build, containerize, and deploy locally
+deploy: build manifest ## Build, containerize, and deploy locally
 	@echo "Building, containerizing and deploy to KinD with ko ..."
 	KO_IMAGE_TAG=$(KO_IMAGE_TAG) \
 	GIT_SHA=$(GIT_SHA) \
