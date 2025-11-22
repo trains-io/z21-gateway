@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
 
 	"github.com/nats-io/nats.go"
@@ -15,6 +16,20 @@ var (
 	commit  = "none"
 	date    = "unknown"
 )
+
+func readDepencyVersion(modulePath string) string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return ""
+	}
+
+	for _, dep := range info.Deps {
+		if dep.Path == modulePath {
+			return dep.Version
+		}
+	}
+	return ""
+}
 
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "version" {
@@ -31,6 +46,7 @@ func main() {
 		Str("context", cfg.Z21Name).
 		Str("z21", cfg.Z21Addr).
 		Str("nats", cfg.NATSURL).
+		Str("z21.go", readDepencyVersion("github.com/trains-io/z21.go")).
 		Msg("config")
 
 	opts := []nats.Option{
